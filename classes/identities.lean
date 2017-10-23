@@ -38,7 +38,7 @@ def r_unary_identity      := ∀x,     x⬝(h x) = x
 def l_unary_const_mult    := ∀x,     h(c⬝x) = c⬝(h x)
 def r_unary_const_mult    := ∀x,     h(x⬝c) = (h x)⬝c
 
---def commutative           := ∀x y,   x⬝y = y⬝x
+--def commutative           := ∀x y,   x⬝y = y⬝x  defined in logic.lean
 def l_unary_projection    := ∀x y,   x⬝y = h x
 def r_unary_projection    := ∀x y,   x⬝y = h y
 def l_idempotent          := ∀x y,   x⬝(x⬝y) = x⬝y
@@ -67,7 +67,7 @@ def l_absorbtive          := ∀x y,   (h x)⬝(h(x⬝y)) = h(x⬝y)
 def r_absorbtive          := ∀x y,   (h(x⬝y))⬝(h y) = h(x⬝y)
 def flexible              := ∀x y,   (x⬝y)⬝x = x⬝(y⬝x)
 
---def associative           := ∀x y z, x⬝(y⬝z) = (x⬝y)⬝z
+--def associative           := ∀x y z, x⬝(y⬝z) = (x⬝y)⬝z  defined in logic.lean
 def l_commutative         := ∀x y z, x⬝(y⬝z) = y⬝(x⬝z)
 def r_commutative         := ∀x y z, (x⬝y)⬝z = (x⬝z)⬝y
 def interassociative1     := ∀x y z, x⬝(y+z) = (x⬝y)+z
@@ -91,6 +91,7 @@ def paramedial            := ∀x y z w, (x⬝y)⬝(z⬝w) = (w⬝y)⬝(z⬝x)
 def l_commutative1 (h: α→β → β) := ∀x₁ x₂ y, h x₁(h x₂ y) = h x₂(h x₁ y)
 def r_commutative1 (h: β→α → β) := ∀y x₁ x₂, h(h y x₁) x₂ = h(h y x₂) x₁
 
+-- example proofs from logic.lean
 lemma l_comm : commutative f → associative f → l_commutative1 f :=
 assume hcomm hassoc, assume x y z, calc
   x⬝(y⬝z) = (x⬝y)⬝z  : (hassoc x y z).symm
@@ -104,7 +105,7 @@ assume hcomm hassoc, assume x y z, calc
     ...  = (x⬝z)⬝y : (hassoc x z y).symm
 
 /-
-def reflexive           := ∀x,     x ≤ x
+def reflexive           := ∀x,     x ≤ x                  defined in logic.lean
 def irreflexive         := ∀x,     ¬ x ≤ x
 def symmetric           := ∀x y,   x ≤ y → y ≤ x
 def anti_symmetric      := ∀x y,   x ≤ y → y ≤ x → x = y
@@ -113,13 +114,14 @@ def total               := ∀x y,   x ≤ y ∨ y ≤ x
 def l_naturally_ordered := ∀x y,   x ≤ y ↔ ∃z, z⬝x = y
 def r_naturally_ordered := ∀x y,   x ≤ y ↔ ∃z, x⬝z = y
 
---def transitive          := ∀x y z, x ≤ y → y ≤ z → x ≤ z
+--def transitive          := ∀x y z, x ≤ y → y ≤ z → x ≤ z defined in logic.lean
 def l_order_preserving  := ∀x y z, x ≤ y → z⬝x ≤ z⬝y
 def r_order_preserving  := ∀x y z, x ≤ y → x⬝z ≤ y⬝z
 def l_residuated        := ∀x y z, x⬝y ≤ z ↔ y ≤ x\z
 def r_residuated        := ∀x y z, x⬝y ≤ z ↔ x ≤ z/y
 
-/-
+/-  some more definitions from logic.lean
+
 def equivalence := reflexive R ∧ symmetric R ∧ transitive R
 def mk_equivalence (refl: reflexive R)(symm: symmetric R)(tran: transitive R): 
 equivalence R := ⟨refl, symm, tran⟩
