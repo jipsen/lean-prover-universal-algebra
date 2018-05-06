@@ -1,0 +1,120 @@
+Draft: A language for formal mathematics
+========================================
+
+All characters are visible unicode characters.
+
+Text outside named blocks is ordinary text.
+
+Formal statements are in named blocks denoted by Keyword name ... end [name].
+
+The language for formal statements is (a variant of) typed higher-order logic.
+
+The logical symbols are:  and, or, not, ⟹, ⟸, ⟺, ∀, ∃, λ, 
+
+The type constructors are: ×, +, →    Type separators  : (for function type), ∈ (for other types)
+
+Predefined constant types: 𝟘, 𝟙, 𝔹, ℕ, ℤ, ℚ, ℝ, ℂ
+
+Mathematical symbols: =, ≠, ≤, ≰, ≥, ≱, any unicode symbol
+
+Inside a Category block all undefined symbols are (type) variables.
+
+Category names are usually plural [optional abbreviations are singular].
+
+All introduced constants are exposed as parameters.
+
+If morphisms are not specified they are algebraic/relational homomorphisms.
+
+priority: logical relation 
+
+Category preorders Pre(⊑)
+  ⊑ : A×A → 𝔹, infix relation
+  reflexivity:  x ⊑ x
+  transitivity: x ⊑ y and y ⊑ z ⟹ x ⊑ z
+end
+
+Category partial_orders Pos(≤)  -- posets
+  extends preorders(≤)
+  antisymmetry: x ≤ y and y ≤ x ⟹ x = y
+end
+
+Category unary_residuated_posets uRPos(≤,⬦,◼)
+  extends partial_orders(≤)
+  ⬦ : A → A, prefix operator
+  ◼ : A → A, prefix operator
+  residuation: ⬦x ≤ y ⟺ x ≤ ◼y
+end
+
+Category residuated_posets RPos(≤,⋅,\,/)
+  extends partial_orders(≤)
+  ⋅ : A×A → A, infix multiplication
+  \ : A×A → A, infix division
+  / : A×A → A, infix division
+  residuation_l: x⋅y ≤ z ⟺ y ≤ x\z
+  residuation_r: x⋅y ≤ z ⟺ x ≤ z/y
+end
+
+Category commutative_semigroups CSgrp(⋅)
+  extends semigroups(⋅)
+  commutativity: x⋅y = y⋅x
+end
+
+Category semilattices Slat(⋅)
+  extends commutative_semigroups(⋅)
+  ⋅ : A×A → A, infix 5
+  idempotence: x⋅x = x
+end
+
+Category unital_semilattices uSlat(⋅,e)
+  extends semilattices(⋅)
+  ⋅ : A×A → A, infix multiplication
+  idempotence: x⋅x = x
+end
+
+Category join_semilattices jSlat(∨)
+  extends semilattices(∨)
+  ≤ : A×A → 𝔹, infix relation
+  idempotence: x⋅x = x
+end
+
+Category lattices Lat(∧,∨)
+  extends semilattices(∧), semilattices(∨)
+  absorption_1: x ∧ (x ∨ y) = x
+  absorption_2: x ∨ (x ∧ y) = x
+end
+
+Category residuated_lattices RLat(∧,∨,⋅,e,\,/)
+  extends lattices(∧,∨), monoids(⋅,e)
+  residuation_l: x⋅y ≤ z ⟺ y ≤ x\z
+  residuation_r: x⋅y ≤ z ⟺ x ≤ z/y
+end
+
+Category unary_operator(∨,⬦)
+  extends semilattices(∨)
+  0 ∈ A
+  ⬦ : A → A
+  normal:          ⬦0 = 0
+  join-preserving: ⬦(x ∨ y) = ⬦x ∨ ⬦y
+end
+
+Functor ????
+
+How to define categories of partial functions?
+
+Partial functions have type  f: A×A → A+𝟙
+
+
+Category partial_semigroups PSgrp(⋅)
+  ⋅ : A×A → A+𝟙
+  associativity: (x⋅y)⋅z = x⋅(y⋅z)  -- Kleene equality
+end
+
+Category effect_algebra EffAlg(+,',0,1)
+  extends generalized_effect_algebras
+  + : A×A → A+𝟙
+  ' : A → A+𝟙
+  0,1 ∈ A
+  0' = 1
+end
+
+∃z (x+z=y) <-> ∃z (z+x=y)

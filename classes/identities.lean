@@ -19,86 +19,86 @@ local infix `≺`:50 := R
 
 def involutive            := ∀x,     h(h x) = x
 def inverse_ops           := ∀x,     h(k x) = x
-def l_unary_absorption    := ∀x,     h(k x) = k x
-def r_unary_absorption    := ∀x,     h(k x) = h x
+def unary_absorption_l    := ∀x,     h(k x) = k x
+def unary_absorption_r    := ∀x,     h(k x) = h x
 def unary_idempotent      := ∀x,     h(h x) = h x
 def idempotent            := ∀x,     x⬝x = x
-def l_identity            := ∀x,     1⬝x = x
-def r_identity            := ∀x,     x⬝1 = x
-def l_zero                := ∀x,     0⬝x = 0
-def r_zero                := ∀x,     x⬝0 = 0
-def l_inverse             := ∀x,     x⁻¹⬝x = 1
-def r_inverse             := ∀x,     x⬝x⁻¹ = 1
-def l_const_mult          := ∀x,     c⬝x = h x
-def r_const_mult          := ∀x,     x⬝c = h x
+def identity_l            := ∀x,     1⬝x = x
+def identity_r            := ∀x,     x⬝1 = x
+def zero_l                := ∀x,     0⬝x = 0
+def zero_r                := ∀x,     x⬝0 = 0
+def inverse_l             := ∀x,     x⁻¹⬝x = 1
+def inverse_r             := ∀x,     x⬝x⁻¹ = 1
+def const_mult_l          := ∀x,     c⬝x = h x
+def const_mult_r          := ∀x,     x⬝c = h x
 def square_constant       := ∀x,     x⬝x = c
 def square_unary          := ∀x,     x⬝x = h x
-def l_unary_identity      := ∀x,     (h x)⬝x = x
-def r_unary_identity      := ∀x,     x⬝(h x) = x
-def l_unary_const_mult    := ∀x,     h(c⬝x) = c⬝(h x)
-def r_unary_const_mult    := ∀x,     h(x⬝c) = (h x)⬝c
+def unary_identity_l      := ∀x,     (h x)⬝x = x
+def unary_identity_r      := ∀x,     x⬝(h x) = x
+def unary_const_mult_l    := ∀x,     h(c⬝x) = c⬝(h x)
+def unary_const_mult_r    := ∀x,     h(x⬝c) = (h x)⬝c
 
 --def commutative           := ∀x y,   x⬝y = y⬝x  defined in logic.lean
-def l_unary_projection    := ∀x y,   x⬝y = h x
-def r_unary_projection    := ∀x y,   x⬝y = h y
-def l_idempotent          := ∀x y,   x⬝(x⬝y) = x⬝y
-def r_idempotent          := ∀x y,   (x⬝y)⬝y = x⬝y
-def l_idempotent'         := ∀x y,   x⬝(y⬝x) = x⬝y
-def r_idempotent'         := ∀x y,   (x⬝y)⬝x = x⬝y
-def l_rectangular         := ∀x y,   (x⬝y)⬝x = x
-def r_rectangular         := ∀x y,   x⬝(y⬝x) = x
+def unary_projection_l    := ∀x y,   x⬝y = h x
+def unary_projection_r    := ∀x y,   x⬝y = h y
+def idempotent_l          := ∀x y,   x⬝(x⬝y) = x⬝y
+def idempotent_r          := ∀x y,   (x⬝y)⬝y = x⬝y
+def idempotent_l'         := ∀x y,   x⬝(y⬝x) = x⬝y
+def idempotent_r'         := ∀x y,   (x⬝y)⬝x = x⬝y
+def rectangular_l         := ∀x y,   (x⬝y)⬝x = x
+def rectangular_r         := ∀x y,   x⬝(y⬝x) = x
 def absorption            := ∀x y,   (x⬝y)+x = x
 def absorption'           := ∀x y,   x+(y⬝x) = x
-def l_division            := ∀x y,   x⬝(x\y) = y
-def r_division            := ∀x y,   (x/y)⬝y = x
-def l_division'           := ∀x y,   x\(x⬝y) = y
-def r_division'           := ∀x y,   (x⬝y)/y = x
+def division_l            := ∀x y,   x⬝(x\y) = y
+def division_r            := ∀x y,   (x/y)⬝y = x
+def division_l'           := ∀x y,   x\(x⬝y) = y
+def division_r'           := ∀x y,   (x⬝y)/y = x
 def unary_commutative     := ∀x y,   (h x)⬝(h y) = (h y)⬝(h x)
 def unary_involutive      := ∀x y,   h(x⬝y) = (h y)⬝(h x)
 def interdistributive     := ∀x y,   h(x⬝y) = (h x)+(h y)
 def unary_distributive    := ∀x y,   h(x⬝y) = (h x)⬝(h y) 
-def l_twisted             := ∀x y,   (h(x⬝y))⬝x = x⬝(h y) 
-def r_twisted             := ∀x y,   x⬝(h(y⬝x)) = (h y)⬝x
-def l_locality            := ∀x y,   h((h x)⬝y) = h(x⬝y)
-def r_locality            := ∀x y,   h(x⬝(h y)) = h(x⬝y)
-def l_unary_distributive  := ∀x y,   h((h x)⬝y) = (h x)⬝(h y)
-def r_unary_distributive  := ∀x y,   h(x⬝(h y)) = (h x)⬝(h y)
-def l_absorbtive          := ∀x y,   (h x)⬝(h(x⬝y)) = h(x⬝y)
-def r_absorbtive          := ∀x y,   (h(x⬝y))⬝(h y) = h(x⬝y)
+def twisted_l             := ∀x y,   (h(x⬝y))⬝x = x⬝(h y) 
+def twisted_r             := ∀x y,   x⬝(h(y⬝x)) = (h y)⬝x
+def locality_l            := ∀x y,   h((h x)⬝y) = h(x⬝y)
+def locality_r            := ∀x y,   h(x⬝(h y)) = h(x⬝y)
+def unary_distributive_l  := ∀x y,   h((h x)⬝y) = (h x)⬝(h y)
+def unary_distributive  := ∀x y,   h(x⬝(h y)) = (h x)⬝(h y)
+def absorbtive_l          := ∀x y,   (h x)⬝(h(x⬝y)) = h(x⬝y)
+def absorbtive_r          := ∀x y,   (h(x⬝y))⬝(h y) = h(x⬝y)
 def flexible              := ∀x y,   (x⬝y)⬝x = x⬝(y⬝x)
 
 --def associative           := ∀x y z, x⬝(y⬝z) = (x⬝y)⬝z  defined in logic.lean
-def l_commutative         := ∀x y z, x⬝(y⬝z) = y⬝(x⬝z)
-def r_commutative         := ∀x y z, (x⬝y)⬝z = (x⬝z)⬝y
+def commutative_l         := ∀x y z, x⬝(y⬝z) = y⬝(x⬝z)
+def commutative_r         := ∀x y z, (x⬝y)⬝z = (x⬝z)⬝y
 def interassociative1     := ∀x y z, x⬝(y+z) = (x⬝y)+z
 def interassociative2     := ∀x y z, x⬝(y+z) = (x+y)⬝z
-def l_distributive        := ∀x y z, x⬝(y+z) = (x⬝y)+(x⬝z)
-def r_distributive        := ∀x y z, (x+y)⬝z = (x⬝z)+(y⬝z)
-def l_self_distributive   := ∀x y z, x⬝(y⬝z) = (x⬝y)⬝(x⬝z)
-def r_self_distributive   := ∀x y z, (x⬝y)⬝z = (x⬝z)⬝(y⬝z)
+def distributive_l        := ∀x y z, x⬝(y+z) = (x⬝y)+(x⬝z)
+def distributive_r        := ∀x y z, (x+y)⬝z = (x⬝z)+(y⬝z)
+def self_distributive_l   := ∀x y z, x⬝(y⬝z) = (x⬝y)⬝(x⬝z)
+def self_distributive_r   := ∀x y z, (x⬝y)⬝z = (x⬝z)⬝(y⬝z)
 def directoid_absorption  := ∀x y z, x⬝((x⬝y)⬝z) = (x⬝y)⬝z
 def directoid_absorbtion' := ∀x y z, (x⬝(y⬝z))⬝z = x⬝(y⬝z)
 def Moufang1              := ∀x y z, ((x⬝y)⬝x)⬝z = x⬝(y⬝(x⬝z))
 def Moufang2              := ∀x y z, ((x⬝y)⬝z)⬝y = x⬝(y⬝(z⬝y))
 def Moufang3              := ∀x y z, (x⬝y)⬝(z⬝x) = (x⬝(y⬝z))⬝x
 def Moufang4              := ∀x y z, (x⬝y)⬝(z⬝x) = x⬝((y⬝z)⬝x)
-def l_cancelative         := ∀x y z, x⬝y = x⬝z → y = z
-def r_cancelative         := ∀x y z, x⬝y = z⬝y → x = z
+def cancelative_l         := ∀x y z, x⬝y = x⬝z → y = z
+def cancelative_r         := ∀x y z, x⬝y = z⬝y → x = z
 
 def entropic              := ∀x y z w, (x⬝y)⬝(z⬝w) = (x⬝z)⬝(y⬝w)
 def paramedial            := ∀x y z w, (x⬝y)⬝(z⬝w) = (w⬝y)⬝(z⬝x)
 
-def l_commutative1 (h: α→β → β) := ∀x₁ x₂ y, h x₁(h x₂ y) = h x₂(h x₁ y)
-def r_commutative1 (h: β→α → β) := ∀y x₁ x₂, h(h y x₁) x₂ = h(h y x₂) x₁
+def commutative1_l (h: α→β → β) := ∀x₁ x₂ y, h x₁(h x₂ y) = h x₂(h x₁ y)
+def commutative1_r (h: β→α → β) := ∀y x₁ x₂, h(h y x₁) x₂ = h(h y x₂) x₁
 
 -- example proofs from logic.lean
-lemma l_comm : commutative f → associative f → l_commutative1 f :=
+lemma comm : commutative f → associative f → commutative1_l f :=
 assume hcomm hassoc, assume x y z, calc
   x⬝(y⬝z) = (x⬝y)⬝z  : (hassoc x y z).symm
     ...  = (y⬝x)⬝z  : hcomm x y ▸ rfl
     ...  = y⬝(x⬝z)  : hassoc y x z
 
-lemma r_comm : commutative f → associative f → r_commutative1 f :=
+lemma comm : commutative f → associative f → commutative1 f :=
 assume hcomm hassoc, assume x y z, calc
   (x⬝y)⬝z = x⬝(y⬝z) : hassoc x y z
     ...  = x⬝(z⬝y) : hcomm y z ▸ rfl
@@ -111,14 +111,14 @@ def symmetric           := ∀x y,   x ≤ y → y ≤ x
 def anti_symmetric      := ∀x y,   x ≤ y → y ≤ x → x = y
 def total               := ∀x y,   x ≤ y ∨ y ≤ x
 -/
-def l_naturally_ordered := ∀x y,   x ≤ y ↔ ∃z, z⬝x = y
-def r_naturally_ordered := ∀x y,   x ≤ y ↔ ∃z, x⬝z = y
+def naturally_ordered_l := ∀x y,   x ≤ y ↔ ∃z, z⬝x = y
+def naturally_ordered := ∀x y,   x ≤ y ↔ ∃z, x⬝z = y
 
 --def transitive          := ∀x y z, x ≤ y → y ≤ z → x ≤ z defined in logic.lean
-def l_order_preserving  := ∀x y z, x ≤ y → z⬝x ≤ z⬝y
-def r_order_preserving  := ∀x y z, x ≤ y → x⬝z ≤ y⬝z
-def l_residuated        := ∀x y z, x⬝y ≤ z ↔ y ≤ x\z
-def r_residuated        := ∀x y z, x⬝y ≤ z ↔ x ≤ z/y
+def order_preserving_l  := ∀x y z, x ≤ y → z⬝x ≤ z⬝y
+def order_preserving_r  := ∀x y z, x ≤ y → x⬝z ≤ y⬝z
+def residuated_l        := ∀x y z, x⬝y ≤ z ↔ y ≤ x\z
+def residuated_r        := ∀x y z, x⬝y ≤ z ↔ x ≤ z/y
 
 /-  some more definitions from logic.lean
 
