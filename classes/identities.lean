@@ -86,14 +86,24 @@ def Moufang4              := ∀x y z, (x⬝y)⬝(z⬝x) = x⬝((y⬝z)⬝x)
 def entropic              := ∀x y z w, (x⬝y)⬝(z⬝w) = (x⬝z)⬝(y⬝w)  -- = medial
 def paramedial            := ∀x y z w, (x⬝y)⬝(z⬝w) = (w⬝y)⬝(z⬝x)
 
+def order_preserving_u    := ∀x y,   x ≤ y → h x ≤ h y
+def order_reversing_u     := ∀x y,   x ≤ y → h y ≤ h x
 def cancelative_l         := ∀x y z, x⬝y = x⬝z → y = z
 def cancelative_r         := ∀x y z, x⬝y = z⬝y → x = z
-def naturally_ordered_l := ∀x y,   x ≤ y ↔ ∃z, z⬝x = y
-def naturally_ordered_r := ∀x y,   x ≤ y ↔ ∃z, x⬝z = y
+def naturally_ordered_l   := ∀x y,   x ≤ y ↔ ∃z, z⬝x = y
+def naturally_ordered_r   := ∀x y,   x ≤ y ↔ ∃z, x⬝z = y
 
 --def transitive          := ∀x y z, x ≤ y → y ≤ z → x ≤ z defined in logic.lean
-def order_preserving_l  := ∀x y z, x ≤ y → z⬝x ≤ z⬝y
-def order_preserving_r  := ∀x y z, x ≤ y → x⬝z ≤ y⬝z
+def order_preserving_l  := ∀x y z, x ≤ y → x⬝z ≤ y⬝z
+def order_preserving_r  := ∀x y z, x ≤ y → z⬝x ≤ z⬝y
+def order_reversing_l   := ∀x y z, x ≤ y → y\z ≤ x\z
+def order_reversing_r   := ∀x y z, x ≤ y → z/y ≤ z/x
+def join_r1             := ∀x y z, x ≤ y → x ≤ y+z
+def join_r2             := ∀x y z, x ≤ z → x ≤ y+z
+def meet_l1             := ∀x y z, x ≤ z → x⬝y ≤ z
+def meet_l2             := ∀x y z, y ≤ z → x⬝y ≤ z
+def join_l              := ∀x y z, x ≤ z ∧ y ≤ z → x+y ≤ z
+def meet_r              := ∀x y z, x ≤ y ∧ x ≤ z → x ≤ y⬝z
 def residuated_l        := ∀x y z, x⬝y ≤ z ↔ y ≤ x\z
 def residuated_r        := ∀x y z, x⬝y ≤ z ↔ x ≤ z/y
 
