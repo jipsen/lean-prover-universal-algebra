@@ -15,7 +15,6 @@ local notation x⁻¹ := h x
 local notation 1   := c
 local notation 0   := c
 local notation x≤y := R x y
-local infix `≺`:50 := R
 
 def involutive            := ∀x,     h(h x) = x
 def inverse_ops           := ∀x,     h(k x) = x
@@ -38,7 +37,7 @@ def unary_identity_r      := ∀x,     x⬝(h x) = x
 def unary_const_mult_l    := ∀x,     h(c⬝x) = c⬝(h x)
 def unary_const_mult_r    := ∀x,     h(x⬝c) = (h x)⬝c
 
---def commutative           := ∀x y,   x⬝y = y⬝x  defined in logic.lean
+--def commutative         := ∀x y,   x⬝y = y⬝x  defined in logic.lean
 def unary_projection_l    := ∀x y,   x⬝y = h x
 def unary_projection_r    := ∀x y,   x⬝y = h y
 def idempotent_l          := ∀x y,   x⬝(x⬝y) = x⬝y
@@ -62,7 +61,7 @@ def twisted_r             := ∀x y,   x⬝(h(y⬝x)) = (h y)⬝x
 def locality_l            := ∀x y,   h((h x)⬝y) = h(x⬝y)
 def locality_r            := ∀x y,   h(x⬝(h y)) = h(x⬝y)
 def unary_distributive_l  := ∀x y,   h((h x)⬝y) = (h x)⬝(h y)
-def unary_distributive  := ∀x y,   h(x⬝(h y)) = (h x)⬝(h y)
+def unary_distributive_r  := ∀x y,   h(x⬝(h y)) = (h x)⬝(h y)
 def absorbtive_l          := ∀x y,   (h x)⬝(h(x⬝y)) = h(x⬝y)
 def absorbtive_r          := ∀x y,   (h(x⬝y))⬝(h y) = h(x⬝y)
 def flexible              := ∀x y,   (x⬝y)⬝x = x⬝(y⬝x)
@@ -70,39 +69,51 @@ def flexible              := ∀x y,   (x⬝y)⬝x = x⬝(y⬝x)
 --def associative           := ∀x y z, x⬝(y⬝z) = (x⬝y)⬝z  defined in logic.lean
 def commutative_l         := ∀x y z, x⬝(y⬝z) = y⬝(x⬝z)
 def commutative_r         := ∀x y z, (x⬝y)⬝z = (x⬝z)⬝y
-def interassociative1     := ∀x y z, x⬝(y+z) = (x⬝y)+z
-def interassociative2     := ∀x y z, x⬝(y+z) = (x+y)⬝z
+def interassociative_1    := ∀x y z, x⬝(y+z) = (x⬝y)+z
+def interassociative_2    := ∀x y z, x⬝(y+z) = (x+y)⬝z
 def distributive_l        := ∀x y z, x⬝(y+z) = (x⬝y)+(x⬝z)
 def distributive_r        := ∀x y z, (x+y)⬝z = (x⬝z)+(y⬝z)
 def self_distributive_l   := ∀x y z, x⬝(y⬝z) = (x⬝y)⬝(x⬝z)
 def self_distributive_r   := ∀x y z, (x⬝y)⬝z = (x⬝z)⬝(y⬝z)
+def central               := ∀x y z, (x⬝y)⬝(y⬝z) = y      -- T. Evans: Am. Math. Monthly, April 1967, 362–372
 def directoid_absorption  := ∀x y z, x⬝((x⬝y)⬝z) = (x⬝y)⬝z
 def directoid_absorbtion' := ∀x y z, (x⬝(y⬝z))⬝z = x⬝(y⬝z)
 def Moufang1              := ∀x y z, ((x⬝y)⬝x)⬝z = x⬝(y⬝(x⬝z))
 def Moufang2              := ∀x y z, ((x⬝y)⬝z)⬝y = x⬝(y⬝(z⬝y))
 def Moufang3              := ∀x y z, (x⬝y)⬝(z⬝x) = (x⬝(y⬝z))⬝x
 def Moufang4              := ∀x y z, (x⬝y)⬝(z⬝x) = x⬝((y⬝z)⬝x)
+
+def entropic              := ∀x y z w, (x⬝y)⬝(z⬝w) = (x⬝z)⬝(y⬝w)  -- = medial
+def paramedial            := ∀x y z w, (x⬝y)⬝(z⬝w) = (w⬝y)⬝(z⬝x)
+
 def cancelative_l         := ∀x y z, x⬝y = x⬝z → y = z
 def cancelative_r         := ∀x y z, x⬝y = z⬝y → x = z
+def naturally_ordered_l := ∀x y,   x ≤ y ↔ ∃z, z⬝x = y
+def naturally_ordered_r := ∀x y,   x ≤ y ↔ ∃z, x⬝z = y
 
-def entropic              := ∀x y z w, (x⬝y)⬝(z⬝w) = (x⬝z)⬝(y⬝w)
-def paramedial            := ∀x y z w, (x⬝y)⬝(z⬝w) = (w⬝y)⬝(z⬝x)
+--def transitive          := ∀x y z, x ≤ y → y ≤ z → x ≤ z defined in logic.lean
+def order_preserving_l  := ∀x y z, x ≤ y → z⬝x ≤ z⬝y
+def order_preserving_r  := ∀x y z, x ≤ y → x⬝z ≤ y⬝z
+def residuated_l        := ∀x y z, x⬝y ≤ z ↔ y ≤ x\z
+def residuated_r        := ∀x y z, x⬝y ≤ z ↔ x ≤ z/y
 
 def commutative1_l (h: α→β → β) := ∀x₁ x₂ y, h x₁(h x₂ y) = h x₂(h x₁ y)
 def commutative1_r (h: β→α → β) := ∀y x₁ x₂, h(h y x₁) x₂ = h(h y x₂) x₁
 
 -- example proofs from logic.lean
-lemma comm : commutative f → associative f → commutative1_l f :=
+lemma comm_l : commutative f → associative f → commutative1_l f :=
 assume hcomm hassoc, assume x y z, calc
   x⬝(y⬝z) = (x⬝y)⬝z  : (hassoc x y z).symm
     ...  = (y⬝x)⬝z  : hcomm x y ▸ rfl
     ...  = y⬝(x⬝z)  : hassoc y x z
 
-lemma comm : commutative f → associative f → commutative1 f :=
+lemma comm_r : commutative f → associative f → commutative1_r f :=
 assume hcomm hassoc, assume x y z, calc
   (x⬝y)⬝z = x⬝(y⬝z) : hassoc x y z
     ...  = x⬝(z⬝y) : hcomm y z ▸ rfl
     ...  = (x⬝z)⬝y : (hassoc x z y).symm
+
+end formulas
 
 /-
 def reflexive           := ∀x,     x ≤ x                  defined in logic.lean
@@ -111,14 +122,7 @@ def symmetric           := ∀x y,   x ≤ y → y ≤ x
 def anti_symmetric      := ∀x y,   x ≤ y → y ≤ x → x = y
 def total               := ∀x y,   x ≤ y ∨ y ≤ x
 -/
-def naturally_ordered_l := ∀x y,   x ≤ y ↔ ∃z, z⬝x = y
-def naturally_ordered := ∀x y,   x ≤ y ↔ ∃z, x⬝z = y
-
---def transitive          := ∀x y z, x ≤ y → y ≤ z → x ≤ z defined in logic.lean
-def order_preserving_l  := ∀x y z, x ≤ y → z⬝x ≤ z⬝y
-def order_preserving_r  := ∀x y z, x ≤ y → x⬝z ≤ y⬝z
-def residuated_l        := ∀x y z, x⬝y ≤ z ↔ y ≤ x\z
-def residuated_r        := ∀x y z, x⬝y ≤ z ↔ x ≤ z/y
+--local infix `≺`:50 := R  -- not used
 
 /-  some more definitions from logic.lean
 
@@ -141,4 +145,3 @@ inductive tc {α: Sort u}(R: α→α → Prop): α→α → Prop
 | base  : ∀ x y, R x y → tc x y
 | trans : ∀ x y z, tc x y → tc y z → tc y z
 -/
-end formulas
