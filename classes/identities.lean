@@ -5,15 +5,16 @@ section formulas
 variables {α: Type u} {β: Type v}
 variables f g: α → α → α
 variables h k: α → α
-variable  c: α
+variables c d: α
 variables R S: α → α → Prop
 local infix `⬝`:70  := f
 local notation x+y := g x y
 local notation x\y := g x y
 local notation x/y := g x y
 local notation x⁻¹ := h x
+local notation `¬`:80 := k 
 local notation 1   := c
-local notation 0   := c
+local notation 0   := d
 local notation x≤y := R x y
 
 def involutive            := ∀x,     h(h x) = x
@@ -86,6 +87,7 @@ def Moufang4              := ∀x y z, (x⬝y)⬝(z⬝x) = x⬝((y⬝z)⬝x)
 def entropic              := ∀x y z w, (x⬝y)⬝(z⬝w) = (x⬝z)⬝(y⬝w)  -- = medial
 def paramedial            := ∀x y z w, (x⬝y)⬝(z⬝w) = (w⬝y)⬝(z⬝x)
 
+def complemented          := ∀x,     x⬝¬x = 0 ∧ x+¬x = 1
 def order_preserving_u    := ∀x y,   x ≤ y → h x ≤ h y
 def order_reversing_u     := ∀x y,   x ≤ y → h y ≤ h x
 def cancelative_l         := ∀x y z, x⬝y = x⬝z → y = z
@@ -93,7 +95,7 @@ def cancelative_r         := ∀x y z, x⬝y = z⬝y → x = z
 def naturally_ordered_l   := ∀x y,   x ≤ y ↔ ∃z, z⬝x = y
 def naturally_ordered_r   := ∀x y,   x ≤ y ↔ ∃z, x⬝z = y
 
---def transitive          := ∀x y z, x ≤ y → y ≤ z → x ≤ z defined in logic.lean
+--def transitive        := ∀x y z, x ≤ y → y ≤ z → x ≤ z defined in logic.lean
 def order_preserving_l  := ∀x y z, x ≤ y → x⬝z ≤ y⬝z
 def order_preserving_r  := ∀x y z, x ≤ y → z⬝x ≤ z⬝y
 def order_reversing_l   := ∀x y z, x ≤ y → y\z ≤ x\z

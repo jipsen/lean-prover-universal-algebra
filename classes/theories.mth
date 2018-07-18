@@ -27,26 +27,26 @@ If morphisms are not specified they are algebraic/relational homomorphisms.
 
 priority: logical relation 
 
-Category preorders Pre(⊑)
-  ⊑ : A×A → 𝔹, infix relation
+Category preorders Pre(A,⊑)
+  ⊑ : A×A → 𝔹, infix
   reflexivity:  x ⊑ x
   transitivity: x ⊑ y and y ⊑ z ⟹ x ⊑ z
 end
 
-Category partial_orders Pos(≤)  -- posets
-  extends preorders(≤)
+Category partial_orders Pos(A,≤)  -- posets
+  extends preorders(A,≤)
   antisymmetry: x ≤ y and y ≤ x ⟹ x = y
 end
 
-Category unary_residuated_posets uRPos(≤,⬦,◼)
-  extends partial_orders(≤)
-  ⬦ : A → A, prefix operator
-  ◼ : A → A, prefix operator
+Category unary_residuated_posets uRPos(A,≤,⬦,◼)
+  extends partial_orders(A,≤)
+  ⬦ : A → A, prefix
+  ◼ : A → A, prefix
   residuation: ⬦x ≤ y ⟺ x ≤ ◼y
 end
 
-Category residuated_posets RPos(≤,⋅,\,/)
-  extends partial_orders(≤)
+Category residuated_posets RPos(A,≤,⋅,\,/)
+  extends partial_orders(A,≤)
   ⋅ : A×A → A, infix multiplication
   \ : A×A → A, infix division
   / : A×A → A, infix division
@@ -54,44 +54,48 @@ Category residuated_posets RPos(≤,⋅,\,/)
   residuation_r: x⋅y ≤ z ⟺ x ≤ z/y
 end
 
-Category commutative_semigroups CSgrp(⋅)
-  extends semigroups(⋅)
+Category semigroups Sgrp(A,⋅)
+  ⋅ : A×A → A, infix 5
+  associativity: (x⋅y)⋅z = x⋅(y⋅z)
+end
+
+Category commutative_semigroups CSgrp(A,⋅)
+  extends semigroups(A,⋅)
   commutativity: x⋅y = y⋅x
 end
 
-Category semilattices Slat(⋅)
+Category semilattices Slat(A,⋅)
   extends commutative_semigroups(⋅)
-  ⋅ : A×A → A, infix 5
   idempotence: x⋅x = x
 end
 
-Category unital_semilattices uSlat(⋅,e)
-  extends semilattices(⋅)
-  ⋅ : A×A → A, infix multiplication
-  idempotence: x⋅x = x
+Category unital_semilattices uSlat(A,⋅,e)
+  extends semilattices(A,⋅)
+  e : A
+  identity_r: x⋅e = x
 end
 
-Category join_semilattices jSlat(∨)
-  extends semilattices(∨)
-  ≤ : A×A → 𝔹, infix relation
-  idempotence: x⋅x = x
+Category join_semilattices jSlat(A,∨)
+  extends semilattices(A,∨)
+  ≤ : A×A → 𝔹, infix
+  x ≤ y ⟺ x ∨ y = x
 end
 
-Category lattices Lat(∧,∨)
-  extends semilattices(∧), semilattices(∨)
+Category lattices Lat(A,∧,∨)
+  extends semilattices(A,∧), semilattices(A,∨)
   absorption_1: x ∧ (x ∨ y) = x
   absorption_2: x ∨ (x ∧ y) = x
 end
 
-Category residuated_lattices RLat(∧,∨,⋅,e,\,/)
-  extends lattices(∧,∨), monoids(⋅,e)
+Category residuated_lattices RLat(A,∧,∨,⋅,e,\,/)
+  extends lattices(A,∧,∨), monoids(A,⋅,e)
   residuation_l: x⋅y ≤ z ⟺ y ≤ x\z
   residuation_r: x⋅y ≤ z ⟺ x ≤ z/y
 end
 
-Category unary_operator(∨,⬦)
-  extends semilattices(∨)
-  0 ∈ A
+Category unary_operator(A,∨,⬦)
+  extends semilattices(A,∨)
+  0 : A
   ⬦ : A → A
   normal:          ⬦0 = 0
   join-preserving: ⬦(x ∨ y) = ⬦x ∨ ⬦y
@@ -104,12 +108,12 @@ How to define categories of partial functions?
 Partial functions have type  f: A×A → A+𝟙
 
 
-Category partial_semigroups PSgrp(⋅)
+Category partial_semigroups PSgrp(A,⋅)
   ⋅ : A×A → A+𝟙
   associativity: (x⋅y)⋅z = x⋅(y⋅z)  -- Kleene equality
 end
 
-Category effect_algebra EffAlg(+,',0,1)
+Category effect_algebra EffAlg(A,+,',0,1)
   extends generalized_effect_algebras
   + : A×A → A+𝟙
   ' : A → A+𝟙

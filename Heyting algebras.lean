@@ -1,3 +1,4 @@
+
 /-Heyting algebras display calculus proofs in Lean -- Peter Jipsen -- April 30, 2018-/
 
 set_option default_priority 100
@@ -51,4 +52,28 @@ apply join_r2,
 apply Lattice.le_refl,
 end
 
+lemma HA_distributive2 [Heyting_algebra α]: ∀x y z:α, x⊓(y ⊔ z) ≤ (x⊓y) ⊔ (x⊓z) :=
+assume x y z,
+by repeat
+begin
+apply res_meet,
+apply join_l,
+apply and.intro,
+apply meet_res,
+apply join_r1,
+apply Lattice.le_refl,
+--apply meet_res,
+apply join_r2,
+apply Lattice.le_refl,
+end
+
 #print classes
+
+open tactic
+
+variables a b r : Prop
+
+example : a -> b -> a ∧ b := 
+by do trace "Hi, Mom!"
+    trace_state
+
